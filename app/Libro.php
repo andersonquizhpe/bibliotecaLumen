@@ -2,24 +2,15 @@
 
 namespace App;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Lumen\Auth\Authorizable;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract
+class Libro extends Model
 {
-    use Authenticatable, Authorizable;
 
-    protected $table = 'auth_user';
-    
+    protected $table = 'modelo_libro';
+    protected $primaryKey='libro_id';
     protected $fillable = [
-        'username',
+        'titulo','fechaPublicacion','numeroPaginas','nombre_editorial','isbn','imagen','resumen'
     ];
-
-    
-    protected $hidden = [
-        'password',
-    ];
+    public $timestamps = false;
 }

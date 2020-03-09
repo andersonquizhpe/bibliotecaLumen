@@ -62,6 +62,16 @@ class UserController extends BaseController
         
     }
     
+    public function getUsers(Request $request){
+        if($request->isJson()){
+            $users = User::all();
+            return response()->json($users, 200);
+        }else{
+            $status=false;
+            $info = "Unathorized";
+        }
+        return ResponseBuilder::result($status, $info);
+    }
     public function logout(Request $request){
 
     }

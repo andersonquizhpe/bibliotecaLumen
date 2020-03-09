@@ -66,16 +66,23 @@ class GeneroController extends BaseController
     }
 
     public function deleteGenero(Request $request, $id){
-        $genero = Genero::where('genero_id', $id)->first();
-        if(!empty($genero)){
-            $genero->delete();
-            $status=true;
-            $info="Data was deleted";
+        
+        if($request->isJson()){
+            $genero = Genero::where('genero_id', $id)->first();
+            if(!empty($genero)){
+                $genero->delete();
+                $status=true;
+                $info="Data was deleted";
+            }else{
+                $status = false;
+                $info = 'Data does not exist';
+            }
             return ResponseBuilder::result($status,$info);
         }else{
             $status = false;
-		    $info = 'Data does not exist';
+            $info = "Unathorized";
         }
+        
         return ResponseBuilder::result($status, $info);
     }
 }

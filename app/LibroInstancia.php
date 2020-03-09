@@ -1,25 +1,29 @@
 <?php
 
 namespace App;
-
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Lumen\Auth\Authorizable;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract
+class LibroInstancia extends Model
 {
-    use Authenticatable, Authorizable;
-
-    protected $table = 'auth_user';
-    
+    protected $table = 'modelo_libroinstancia';
+    //public $incrementing = false;
+    protected $keyType = 'string';
+    public $incrementing = false;
+    protected $primaryKey='libroinstancia_id';
     protected $fillable = [
-        'username',
+        'fecha_devolucion','estado'
     ];
-
+    public $timestamps = false;
     
-    protected $hidden = [
-        'password',
-    ];
+    
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (Model $model) {
+            $model->setAttribute($model->getKeyName(),str_replace("-","",Uuid::uuid4()->toString()) );
+        });
+    }
+
 }
