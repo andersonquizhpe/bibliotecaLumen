@@ -14,3 +14,15 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+//Usuarios
+$router->group(['prefix'=>'usuarios'], function($router){
+    $router->post('/login', 'UserController@login');
+});
+//Genero
+$router->group(['prefix'=>'generos'], function($router){
+    $router->get('','GeneroController@getGeneros');
+    $router->get('/get/{id}','GeneroController@getOneGenero');
+    $router->post('/create','GeneroController@createGenero');
+    $router->post('/edit/{id}','GeneroController@updateGenero');
+    $router->get('/delete/{id}','GeneroController@deleteGenero');
+});
