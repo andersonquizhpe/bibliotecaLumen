@@ -38,6 +38,42 @@ class LibroController extends BaseController
         return ResponseBuilder::result($status, $info);
     }
 
+    public function getLibroAutor(Request $request, $id){
+        if($request->isJson()){
+            $libro = Libro::where('autor_id',$id)->get();
+            if(!$libro->isEmpty()){
+                $status=true;
+                $info = "Data is listed successfully";
+            }else{
+                $status=false;
+                $info = "Data could not be found";
+            }
+            return ResponseBuilder::result($status,$info,$libro);
+        }else{
+            $status = false;
+            $info = "Unathorized";
+        }
+        return ResponseBuilder::result($status, $info);
+    }
+
+    public function getLibroGenero(Request $request, $id){
+        if($request->isJson()){
+            $libro = Libro::where('genero_id',$id)->get();
+            if(!$libro->isEmpty()){
+                $status=true;
+                $info = "Data is listed successfully";
+            }else{
+                $status=false;
+                $info = "Data could not be found";
+            }
+            return ResponseBuilder::result($status,$info,$libro);
+        }else{
+            $status = false;
+            $info = "Unathorized";
+        }
+        return ResponseBuilder::result($status, $info);
+    }
+
     //realizar metodos crear y actualizar libro
 
     public function deleteLibro(Request $request, $id){

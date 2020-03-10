@@ -41,6 +41,8 @@ $router->group(['prefix'=>'autores'], function($router){
 $router->group(['prefix'=>'libros'], function($router){
     $router->get('','LibroController@getLibros');
     $router->get('/get/{id}','LibroController@getLibroOne');
+    $router->get('/getAutor/{id}','LibroController@getLibroAutor');
+    $router->get('/getGenero/{id}','LibroController@getLibroGenero');
     $router->get('/delete/{id}','LibroController@deleteLibro');
 });
 
