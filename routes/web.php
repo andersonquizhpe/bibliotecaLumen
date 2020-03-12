@@ -32,6 +32,7 @@ $router->group(['prefix'=>'generos'], function($router){
 $router->group(['prefix'=>'autores'], function($router){
     $router->get('','AutorController@getAutor');
     $router->get('/get/{id}','AutorController@getOneAutor');
+    $router->get('/getautor/{nombre}','AutorController@getOneAutorName');
     $router->get('/delete/{id}',"AutorController@deleteAutor");
     $router->post('/create', 'AutorController@createAutor');
     $router->put('/edit/{id}', 'AutorController@updateAutor');
@@ -44,6 +45,8 @@ $router->group(['prefix'=>'libros'], function($router){
     $router->get('/getAutor/{id}','LibroController@getLibroAutor');
     $router->get('/getGenero/{id}','LibroController@getLibroGenero');
     $router->get('/delete/{id}','LibroController@deleteLibro');
+    $router->get('/getLibroT/{titulo}','LibroController@getLibroTitulo');
+    //getLibroTitulo
 });
 
 //librosIns

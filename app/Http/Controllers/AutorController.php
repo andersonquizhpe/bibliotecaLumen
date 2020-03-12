@@ -12,7 +12,9 @@ class AutorController extends BaseController
     public function getAutor(Request $request){
         if($request->isJson()){
             $autor = Autor::all();
-            return response()->json($autor, 200);
+                $status = true;
+                $info = "Data is listed successfully";
+            return ResponseBuilder::result($status, $info, $autor);
         }else{
             $status = false;
             $info = "Unathorized";
@@ -20,6 +22,24 @@ class AutorController extends BaseController
         return ResponseBuilder::result($status, $info);
     }
 
+    public function getOneAutorName(Request $request, $nombre){
+        if($request->isJson()){
+            //$libro = Libro:: where('titulo', 'like', '%' . $titulo . '%')->get();
+            $autor =Autor::where('nombre','like','%'.$nombre.'%')->get();
+            if(!$autor->isEmpty()){
+                $status = true;
+                $info = "Data is listed successfully";
+            }else{
+                $status=false;
+                $info = "Data could not be found";
+            }
+            return ResponseBuilder::result($status,$info,$autor);
+        }else{
+            $status = false;
+            $info = "Unathorized";
+        }
+        return ResponseBuilder::result($status, $info);
+    }
     public function getOneAutor(Request $request, $id){
         if($request->isJson()){
             $autor =Autor::where('autor_id',$id)->get();

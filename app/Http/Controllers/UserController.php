@@ -29,9 +29,9 @@ class UserController extends BaseController
                 $status= false;
                 $info = "User not found";
             }
-            return ResponseBuilder::result($status, $info);
+            return ResponseBuilder::result($status, $info, $user);
         }else{
-            $status= falsse;
+            $status= false;
             $info = "Unauthorized";   
         }
         return ResponseBuilder::result($status, $info);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Libro;
+use App\Autor;
 use App\Http\Helper\ResponseBuilder;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
@@ -12,7 +13,9 @@ class LibroController extends BaseController
     public function getLibros(Request $request){
         if($request->isJson()){
             $libros = Libro::all();
-            return response()->json($libros,200);
+            $status=true;
+            $info = "Data is listed successfully";
+            return ResponseBuilder::result($status,$info,$libros);
         }else{
             $status = false;
             $info = "Unathorized";
@@ -41,6 +44,28 @@ class LibroController extends BaseController
     public function getLibroAutor(Request $request, $id){
         if($request->isJson()){
             $libro = Libro::where('autor_id',$id)->get();
+            if(!$libro->isEmpty()){
+                $status=true;
+                $info = "Data is listed successfully";
+            }else{
+                $status=false;
+                $info = "Data could not be found";
+            }
+            return ResponseBuilder::result($status,$info,$libro);
+        }else{
+            $status = false;
+            $info = "Unathorized";
+        }
+        return ResponseBuilder::result($status, $info);
+    }
+
+    public function getLibroTitulo(Request $request, $titulo){
+        
+        
+        if($request->isJson()){
+            $search = array("%20","%C3%B1");
+            $replace = array(" ","ñ");
+            $libro = Libro:: where('titulo', 'like', '%' . str_replace($search,$replace,$titulo) . '%')->get();
             if(!$libro->isEmpty()){
                 $status=true;
                 $info = "Data is listed successfully";
